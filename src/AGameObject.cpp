@@ -9,10 +9,8 @@
 
 using namespace clickNGrow;
 
-AGameObject::AGameObject(float price, float money, DisplayMode mode, int amount) : _price(price), _money(money)
+AGameObject::AGameObject(float price, float money) : _price(price), _money(money)
 {
-    _displayMode = mode;
-    _amount = amount;
 }
 
 void AGameObject::update(float money, float deltaTime)

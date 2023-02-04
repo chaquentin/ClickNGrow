@@ -9,8 +9,10 @@
 
 using namespace clickNGrow;
 
-WaterDrop::WaterDrop() : AGameObject(15, 0.1, Unrevealed, 0)
+WaterDrop::WaterDrop() : AGameObject(15, 0.1)
 {
+    _displayMode = Unrevealed;
+    _amount = 0;
 }
 
 WaterDrop::~WaterDrop()

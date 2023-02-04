@@ -9,8 +9,10 @@
 
 using namespace clickNGrow;
 
-Egg::Egg() : AGameObject(1700000000, 10000000, Hidden, 0)
+Egg::Egg() : AGameObject(1700000000, 10000000)
 {
+    _displayMode = Hidden;
+    _amount = 0;
 }
 
 Egg::~Egg()

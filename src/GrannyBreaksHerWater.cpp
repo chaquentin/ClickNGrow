@@ -9,8 +9,10 @@
 
 using namespace clickNGrow;
 
-GrannyBreaksHerWater::GrannyBreaksHerWater() : AGameObject(1100, 10, Hidden, 0)
+GrannyBreaksHerWater::GrannyBreaksHerWater() : AGameObject(1100, 10)
 {
+    _displayMode = Hidden;
+    _amount = 0;
 }
 
 GrannyBreaksHerWater::~GrannyBreaksHerWater()

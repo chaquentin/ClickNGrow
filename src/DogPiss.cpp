@@ -9,8 +9,10 @@
 
 using namespace clickNGrow;
 
-DogPiss::DogPiss() : AGameObject(100, 1, Hidden, 0)
+DogPiss::DogPiss() : AGameObject(100, 1)
 {
+    _displayMode = Hidden;
+    _amount = 0;
 }
 
 DogPiss::~DogPiss()

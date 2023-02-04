@@ -9,8 +9,10 @@
 
 using namespace clickNGrow;
 
-GrandpasStool::GrandpasStool() : AGameObject(1400000, 10000, Hidden, 0)
+GrandpasStool::GrandpasStool() : AGameObject(1400000, 10000)
 {
+    _displayMode = Hidden;
+    _amount = 0;
 }
 
 GrandpasStool::~GrandpasStool()

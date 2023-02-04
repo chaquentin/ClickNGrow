@@ -9,8 +9,10 @@
 
 using namespace clickNGrow;
 
-WateringCan::WateringCan() : AGameObject(160000000, 1000000, Hidden, 0)
+WateringCan::WateringCan() : AGameObject(160000000, 1000000)
 {
+    _displayMode = Hidden;
+    _amount = 0;
 }
 
 WateringCan::~WateringCan()

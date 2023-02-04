@@ -9,8 +9,10 @@
 
 using namespace clickNGrow;
 
-GrannysAshes::GrannysAshes() : AGameObject(12000, 100, Hidden, 0)
+GrannysAshes::GrannysAshes() : AGameObject(12000, 100)
 {
+    _displayMode = Hidden;
+    _amount = 0;
 }
 
 GrannysAshes::~GrannysAshes()

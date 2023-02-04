@@ -9,8 +9,10 @@
 
 using namespace clickNGrow;
 
-Rain::Rain() : AGameObject(19000000000, 100000000, Hidden, 0)
+Rain::Rain() : AGameObject(19000000000, 100000000)
 {
+    _displayMode = Hidden;
+    _amount = 0;
 }
 
 Rain::~Rain()

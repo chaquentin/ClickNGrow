@@ -9,8 +9,10 @@
 
 using namespace clickNGrow;
 
-GrandpaSkeleton::GrandpaSkeleton() : AGameObject(15000000, 100000, Hidden, 0)
+GrandpaSkeleton::GrandpaSkeleton() : AGameObject(15000000, 100000)
 {
+    _displayMode = Hidden;
+    _amount = 0;
 }
 
 GrandpaSkeleton::~GrandpaSkeleton()

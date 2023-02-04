@@ -9,8 +9,10 @@
 
 using namespace clickNGrow;
 
-Fertilizer::Fertilizer() : AGameObject(130000, 1000, Hidden, 0)
+Fertilizer::Fertilizer() : AGameObject(130000, 1000)
 {
+    _displayMode = Hidden;
+    _amount = 0;
 }
 
 Fertilizer::~Fertilizer()
