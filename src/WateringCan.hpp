@@ -2,22 +2,22 @@
 ** EPITECH PROJECT, 2023
 ** ClickNGrow
 ** File description:
-** WaterDrop
+** WateringCan
 */
 
-#ifndef WATERDROP_HPP_
-#define WATERDROP_HPP_
+#ifndef WATERINGCAN_HPP_
+#define WATERINGCAN_HPP_
 #include "AGameObject.hpp"
 
 namespace clickNGrow {
-    class WaterDrop : public AGameObject {
+    class WateringCan : public AGameObject {
         public:
-            WaterDrop();
-            ~WaterDrop();
+            WateringCan();
+            ~WateringCan();
             void display() const;
         protected:
         private:
     };
 }
 
-#endif /* !WATERDROP_HPP_ */
+#endif /* !WATERINGCAN_HPP_ */

@@ -2,22 +2,22 @@
 ** EPITECH PROJECT, 2023
 ** ClickNGrow
 ** File description:
-** WaterDrop
+** Fertilizer
 */
 
-#ifndef WATERDROP_HPP_
-#define WATERDROP_HPP_
+#ifndef FERTILIZER_HPP_
+#define FERTILIZER_HPP_
 #include "AGameObject.hpp"
 
 namespace clickNGrow {
-    class WaterDrop : public AGameObject {
+    class Fertilizer : public AGameObject {
         public:
-            WaterDrop();
-            ~WaterDrop();
+            Fertilizer();
+            ~Fertilizer();
             void display() const;
         protected:
         private:
     };
 }
 
-#endif /* !WATERDROP_HPP_ */
+#endif /* !FERTILIZER_HPP_ */
