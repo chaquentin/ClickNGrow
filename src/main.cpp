@@ -12,6 +12,8 @@
 
 #include "GameObject.hpp"
 
+void Pub();
+
 static const std::vector<clickNGrow::GameObject *> gameObjects = {
     
 };
@@ -49,6 +51,8 @@ int main(void)
         while (window.pollEvent(event)) {
             if (event.type == sf::Event::Closed or sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
                 window.close();
+            if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::P)
+                Pub();
         }
         deltaTime += clock.getElapsedTime().asSeconds();
         update(money, deltaTime);
