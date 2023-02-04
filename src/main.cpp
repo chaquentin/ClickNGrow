@@ -9,19 +9,16 @@
 #include <SFML/Window.hpp>
 #include <SFML/System.hpp>
 #include <vector>
+#include "iostream"
 
 #include "GameObject.hpp"
+#include "Hud.hpp"
 
 void Pub();
 
 static const std::vector<clickNGrow::GameObject *> gameObjects = {
     
 };
-
-void displayScene(unsigned int scene)
-{
-    // Display scene rectangle with y = 1080 * scene & x = 0
-}
 
 void display()
 {
@@ -37,18 +34,28 @@ void update(float money, float deltaTime)
     }
 }
 
+float getDeltaTime(sf::Clock &clock)
+{
+    static float deltaTime = 0;
+
+    deltaTime = clock.getElapsedTime().asSeconds();
+    clock.restart();
+    return deltaTime;
+}
+
 int main(void)
 {
     // create SFML loop here
-    sf::RenderWindow window(sf::VideoMode(1920, 1080), "ClickNGrow");
+    sf::RenderWindow window(sf::VideoMode(1920, 1080), "ClickNGrow", sf::Style::Fullscreen);
     unsigned int scene = 0;
     float money = 0;
-    float deltaTime = 0;
+    float timePassed = 0.f;
     sf::Clock clock;
     sf::Text money_text;
     sf::Font font;
     font.loadFromFile("assets/fonts/ClickNGrow.ttf");
     money_text.setFont(font);
+    clickNGrow::Hud hud;
 
     while (window.isOpen()) {
         sf::Event event;
@@ -61,18 +68,19 @@ int main(void)
                 if (event.mouseButton.x >= 0 && event.mouseButton.x <= 1280 && event.mouseButton.y >= 0 && event.mouseButton.y <= 1080)
                     money += 1;
         }
-        deltaTime += clock.getElapsedTime().asSeconds();
-        update(money, deltaTime);
+        timePassed += getDeltaTime(clock);
+        update(money, timePassed);
         window.clear();
-        displayScene(scene);
+        hud.display(window);
         display();
         money_text.setString(std::to_string((int)money) + "*");
         money_text.setFillColor(sf::Color::White);
         money_text.setPosition(0, 0);
         window.draw(money_text);
         window.display();
-        if (deltaTime > 1)
-            deltaTime = 0;
+        if (timePassed > 1.f) {
+            timePassed = 0.f;
+        }
     }
     return 0;
 }
