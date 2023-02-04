@@ -20,7 +20,7 @@ namespace clickNGrow {
     class GameObject {
         public:
             virtual ~GameObject() = default;
-            virtual void update(float &money, float deltaTime) = 0;
+            virtual float update(float money, float deltaTime) = 0;
             virtual void display() const = 0;
 
             virtual void setDisplayMode(DisplayMode displayMode) = 0;
