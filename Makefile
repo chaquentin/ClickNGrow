@@ -13,6 +13,7 @@ SRC =	AGameObject.cpp	\
 		GrandpasStool.cpp	\
 		GrannyBreaksHerWater.cpp	\
 		GrannysAshes.cpp	\
+		Hud.cpp	\
 		main.cpp	\
 		Pub.cpp	\
 		Rain.cpp	\

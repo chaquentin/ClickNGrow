@@ -8,6 +8,8 @@
 #ifndef GAMEOBJECT_HPP_
 #define GAMEOBJECT_HPP_
 
+#include <SFML/Graphics.hpp>
+
 enum DisplayMode {
     Hidden,
     Unrevealed,
@@ -18,8 +20,7 @@ namespace clickNGrow {
     class GameObject {
         public:
             virtual ~GameObject() = default;
-            virtual void start() = 0;
-            virtual void update(float money, float deltaTime) = 0;
+            virtual void update(float &money, float deltaTime) = 0;
             virtual void display() const = 0;
 
             virtual void setDisplayMode(DisplayMode displayMode) = 0;
