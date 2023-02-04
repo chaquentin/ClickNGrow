@@ -2,22 +2,22 @@
 ** EPITECH PROJECT, 2023
 ** ClickNGrow
 ** File description:
-** WaterDrop
+** GrandpasStool
 */
 
-#ifndef WATERDROP_HPP_
-#define WATERDROP_HPP_
+#ifndef GRANDPASSTOOL_HPP_
+#define GRANDPASSTOOL_HPP_
 #include "AGameObject.hpp"
 
 namespace clickNGrow {
-    class WaterDrop : public AGameObject {
+    class GrandpasStool : public AGameObject {
         public:
-            WaterDrop();
-            ~WaterDrop();
+            GrandpasStool();
+            ~GrandpasStool();
             void display() const;
         protected:
         private:
     };
 }
 
-#endif /* !WATERDROP_HPP_ */
+#endif /* !GRANDPASSTOOL_HPP_ */

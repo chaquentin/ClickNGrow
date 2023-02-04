@@ -2,22 +2,22 @@
 ** EPITECH PROJECT, 2023
 ** ClickNGrow
 ** File description:
-** WaterDrop
+** GrannysAshes
 */
 
-#ifndef WATERDROP_HPP_
-#define WATERDROP_HPP_
+#ifndef GRANNYSASHES_HPP_
+#define GRANNYSASHES_HPP_
 #include "AGameObject.hpp"
 
 namespace clickNGrow {
-    class WaterDrop : public AGameObject {
+    class GrannysAshes : public AGameObject {
         public:
-            WaterDrop();
-            ~WaterDrop();
+            GrannysAshes();
+            ~GrannysAshes();
             void display() const;
         protected:
         private:
     };
 }
 
-#endif /* !WATERDROP_HPP_ */
+#endif /* !GRANNYSASHES_HPP_ */
