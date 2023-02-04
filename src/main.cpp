@@ -13,11 +13,32 @@
 
 #include "GameObject.hpp"
 #include "Hud.hpp"
+#include "DogPiss.hpp"
+#include "Egg.hpp"
+#include "Fertilizer.hpp"
+#include "GrandpaSkeleton.hpp"
+#include "GrandpasStool.hpp"
+#include "GrannyBreaksHerWater.hpp"
+#include "GrannysAshes.hpp"
+#include "Rain.hpp"
+#include "WaterDrop.hpp"
+#include "WateringCan.hpp"
 
 void Pub();
 
+using namespace clickNGrow;
+
 static const std::vector<clickNGrow::GameObject *> gameObjects = {
-    
+    new WaterDrop(),
+    new DogPiss(),
+    new GrannyBreaksHerWater(),
+    new GrannysAshes(),
+    new Fertilizer(),
+    new GrandpasStool(),
+    new GrandpaSkeleton(),
+    new WateringCan(),
+    new Egg(),
+    new Rain(),
 };
 
 void display()
@@ -27,11 +48,13 @@ void display()
     }
 }
 
-void update(float money, float deltaTime)
+void update(Hud &hud, float deltaTime)
 {
+    float money = hud.getMoney();
     for (auto &gameObject : gameObjects) {
-        gameObject->update(money, deltaTime);
+        money = gameObject->update(money, deltaTime);
     }
+    hud.setMoney(money);
 }
 
 float getDeltaTime(sf::Clock &clock)
@@ -64,12 +87,33 @@ int main(void)
             if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left)
                 if (event.mouseButton.x >= 0 && event.mouseButton.x <= 1280 && event.mouseButton.y >= 0 && event.mouseButton.y <= 1080) {
                     hud += 1;
-                    if (hud.getMoney() % 10 == 0 && rand() % 10 == 1)
+                    if ((int)hud.getMoney() % 10 == 0 && rand() % 10 == 1)
                         Pub();
                 }
+
+            if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::J) {
+                for (auto &gameObject : gameObjects) {
+                    if (WaterDrop *water = dynamic_cast<WaterDrop *>(gameObject))
+                        if (hud.getMoney() >= water->getPrice()) {
+                            water->setAmount(water->getAmount() + 1);
+                            hud += -water->getPrice();
+                            water->setPrice(water->getPrice() * 1.25);
+                        }
+                }
+            }
+            if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::K) {
+                for (auto &gameObject : gameObjects) {
+                    if (DogPiss *dogpiss = dynamic_cast<DogPiss *>(gameObject))
+                        if (hud.getMoney() >= dogpiss->getPrice()) {
+                            dogpiss->setAmount(dogpiss->getAmount() + 1);
+                            hud += -dogpiss->getPrice();
+                            dogpiss->setPrice(dogpiss->getPrice() * 1.25);
+                        }
+                }
+            }
         }
         timePassed += getDeltaTime(clock);
-        update(hud.getMoney(), timePassed);
+        update(hud, timePassed);
         window.clear();
         hud.display(window);
         display();

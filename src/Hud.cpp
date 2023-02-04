@@ -46,12 +46,12 @@ void Hud::levelUp()
     _level->setTextureRect(_rect);
 }
 
-int Hud::getMoney() const
+float Hud::getMoney() const
 {
     return _money;
 }
 
-void Hud::setMoney(int money)
+void Hud::setMoney(float money)
 {
     _money = money;
 }
