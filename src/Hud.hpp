@@ -20,7 +20,9 @@ namespace clickNGrow {
 
         protected:
             sf::Texture *_texture;
+            sf::Texture *_levelTexture;
             sf::Sprite *_sprite;
+            sf::Sprite *_level;
             sf::Vector2f _position;
             sf::IntRect _rect;
         private:
