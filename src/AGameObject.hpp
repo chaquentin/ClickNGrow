@@ -14,7 +14,7 @@ namespace clickNGrow {
         public:
             AGameObject(float price, float money, DisplayMode mode, int amount);
             ~AGameObject() = default;
-            void update(float money, float deltaTime);
+            void update(float &money, float deltaTime);
             virtual void display() const = 0;
             void setDisplayMode(DisplayMode displayMode);
             DisplayMode getDisplayMode(void) const;

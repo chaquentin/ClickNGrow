@@ -15,7 +15,7 @@ AGameObject::AGameObject(float price, float money, DisplayMode mode, int amount)
     _amount = amount;
 }
 
-void AGameObject::update(float money, float deltaTime)
+void AGameObject::update(float &money, float deltaTime)
 {
 }
 
