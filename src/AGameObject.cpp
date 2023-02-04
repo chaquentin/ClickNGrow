@@ -6,17 +6,24 @@
 */
 
 #include "AGameObject.hpp"
+#include <iostream>
 
 using namespace clickNGrow;
 
-AGameObject::AGameObject(float price, float money, DisplayMode mode, int amount) : _price(price), _money(money)
+AGameObject::AGameObject(float price, float money, DisplayMode mode, int amount)
 {
     _displayMode = mode;
     _amount = amount;
+    _price = price;
+    _money = money;
 }
 
-void AGameObject::update(float &money, float deltaTime)
+float AGameObject::update(float money, float deltaTime)
 {
+    if (deltaTime >= 1) {
+        money += _money * _amount;
+    }
+    return money;
 }
 
 /*-----------------------------Getters/Setters-------------------------------*/
@@ -36,12 +43,17 @@ float AGameObject::getPrice(void) const
     return _price;
 }
 
+void AGameObject::setPrice(float price)
+{
+    _price = price;
+}
+
 float AGameObject::getMoney(void) const
 {
     return _money;
 }
 
-void AGameObject::setAmount(int amount)
+void AGameObject::setAmount(float amount)
 {
     _amount = amount;
 }

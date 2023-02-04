@@ -17,6 +17,9 @@ namespace clickNGrow {
             ~Hud();
             void display(sf::RenderWindow &) const;
             void levelUp();
+            float getMoney() const;
+            void setMoney(float);
+            Hud &operator+=(int);
 
         protected:
             sf::Texture *_texture;
@@ -25,6 +28,7 @@ namespace clickNGrow {
             sf::Sprite *_level;
             sf::Vector2f _position;
             sf::IntRect _rect;
+            double _money;
         private:
     };
 }
