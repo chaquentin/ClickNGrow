@@ -95,7 +95,7 @@ clickNGrow::Save::Save(std::vector<clickNGrow::GameObject *> gameObjects)
     _money = 0.0;
     _gameObjects = gameObjects;
     _moneyGotten = 0;
-    _nbrUpgrades = 1;
+    _nbrUpgrades = 0;
 }
 
 clickNGrow::Save::~Save()
@@ -112,7 +112,6 @@ const std::vector<clickNGrow::GameObject *> clickNGrow::Save::load(std::string f
         Json::Reader reader;
         Json::Value completeJsonData;
         reader.parse(ifs, completeJsonData);
-
         _money = completeJsonData["Data"]["Money"].asDouble();
         _timeSinceLastSave = time(NULL) - completeJsonData["Data"]["LastUpdate"].asUInt();
         multTime = _timeSinceLastSave;
