@@ -22,6 +22,7 @@ namespace clickNGrow {
             double getMoney(void) const;
             unsigned int getTimeSinceLastSave(void) const;
             std::vector<std::string> getElapsedTimeMoney(void);
+            int getNbrUpgrades(void) const;
             Save(std::vector<clickNGrow::GameObject *> gameObjects);
             ~Save();
         private:
@@ -29,6 +30,7 @@ namespace clickNGrow {
             std::vector<clickNGrow::GameObject *> _gameObjects;
             double _money;
             double _moneyGotten;
+            int _nbrUpgrades;
 
 
     };

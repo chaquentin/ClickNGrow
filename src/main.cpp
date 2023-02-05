@@ -133,7 +133,6 @@ void displayTimeElapsed(sf::RenderWindow &window, sf::Text timeElapsed)
 
 int main(void)
 {
-
     Save save(gameObjects);
 
     size_t nbrUpgrades = save.load("save.json").size();
@@ -170,6 +169,9 @@ int main(void)
     srand(time(NULL));
 
     hud += save.getMoney();
+    hud.setNbrDisplay(save.getNbrUpgrades());
+    for (int i = 0; i < save.getNbrUpgrades(); i++)
+        hud.levelUp();
     while (window.isOpen()) {
         sf::Event event;
         while (window.pollEvent(event)) {
