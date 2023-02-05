@@ -10,6 +10,7 @@
 #include <SFML/System.hpp>
 #include <vector>
 #include <iostream>
+#include <cstring>
 
 #include "GameObject.hpp"
 #include "Hud.hpp"
@@ -131,7 +132,7 @@ void displayTimeElapsed(sf::RenderWindow &window, sf::Text timeElapsed)
     window.draw(timeElapsed);
 }
 
-int main(void)
+int main(int argc, char **argv)
 {
     Save save(gameObjects);
 
@@ -141,7 +142,14 @@ int main(void)
         gameObjects[i] = save.getObjects()[i];
     };
 
-    sf::RenderWindow window(sf::VideoMode(1920, 1080), "ClickNGrow", sf::Style::Fullscreen);
+    sf::RenderWindow window;
+    if (argc > 1 && std::strcmp(argv[1], "-nf") == 0) {
+        window.create(sf::VideoMode(1920, 1080), "ClickNGrow");
+    } else {
+        window.create(sf::VideoMode(1920, 1080), "ClickNGrow", sf::Style::Fullscreen);
+    }
+
+
     float timePassed = 0.f;
     int totalseconds = 0;
     sf::Clock clock;
