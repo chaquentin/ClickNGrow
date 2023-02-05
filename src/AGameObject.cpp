@@ -16,6 +16,10 @@ AGameObject::AGameObject(float price, float money, DisplayMode mode, int amount)
     _amount = amount;
     _price = price;
     _money = money;
+    _sprite = new sf::Sprite();
+    _texture = new sf::Texture();
+    _texture->loadFromFile("assets/images/Case.png");
+    _sprite->setTexture(*_texture);
 }
 
 float AGameObject::update(float money, float deltaTime)
@@ -66,4 +70,14 @@ void AGameObject::setAmount(float amount)
 int AGameObject::getAmount(void) const
 {
     return _amount;
+}
+
+sf::Vector2f AGameObject::getPosition(void) const
+{
+    return _position;
+}
+
+void AGameObject::setPosition(sf::Vector2f position)
+{
+    _position = position;
 }

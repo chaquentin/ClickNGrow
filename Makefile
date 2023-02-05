@@ -6,6 +6,7 @@
 ##
 
 SRC =	AGameObject.cpp	\
+		ConvertMoney.cpp	\
 		DogPiss.cpp	\
 		Egg.cpp	\
 		Fertilizer.cpp	\

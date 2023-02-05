@@ -23,6 +23,8 @@
 #include "WaterDrop.hpp"
 #include "WateringCan.hpp"
 
+#include "Hud.hpp"
+
 #include <tuple>
 
 std::vector<std::string> clickNGrow::Save::getElapsedTimeMoney(void)
@@ -117,6 +119,9 @@ const std::vector<clickNGrow::GameObject *> clickNGrow::Save::load(std::string f
             _gameObjects[i]->setPrice(completeJsonData["Upgrades"][i]["price"].asFloat());
             _gameObjects[i]->setMoney(completeJsonData["Upgrades"][i]["money"].asFloat());
             _moneyGotten += (completeJsonData["Upgrades"][i]["amount"].asInt() * completeJsonData["Upgrades"][i]["money"].asFloat() * multTime);
+            if (i > 0 && completeJsonData["Upgrades"][i - 1]["amount"].asInt()) {
+                _gameObjects[i]->setDisplayMode(Revealed);
+            }
         }
         _money += _moneyGotten;
         ifs.close();

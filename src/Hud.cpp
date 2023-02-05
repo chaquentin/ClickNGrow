@@ -26,12 +26,15 @@ Hud::Hud()
     _level->setTextureRect(_rect);
     _level->setTexture(*_levelTexture);
     _money = 0;
+    _nbrDispay = 1;
 }
 
 Hud::~Hud()
 {
     delete _texture;
     delete _sprite;
+    delete _levelTexture;
+    delete _level;
 }
 
 void Hud::display(sf::RenderWindow &window) const
@@ -60,4 +63,14 @@ Hud &Hud::operator+=(int money)
 {
     _money += money;
     return *this;
+}
+
+int Hud::getNbrDisplay() const
+{
+    return _nbrDispay;
+}
+
+void Hud::setNbrDisplay(int nbrDisplay)
+{
+    _nbrDispay = nbrDisplay;
 }
