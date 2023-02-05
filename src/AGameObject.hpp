@@ -22,6 +22,7 @@ namespace clickNGrow {
             void setPrice(float price);
             float getMoney(void) const;
             void setAmount(float amount);
+            void setMoney(float money);
             int getAmount(void) const;
         protected:
             DisplayMode _displayMode;
