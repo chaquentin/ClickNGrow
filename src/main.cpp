@@ -194,7 +194,7 @@ int main(void)
         window.draw(money_text);
         window.draw(circle);
         window.draw(pub_text);
-        if (totalseconds < 15)
+        if (totalseconds < 15 && save.getElapsedTimeMoney()[1] != std::to_string((double)0))
             displayTimeElapsed(window, timeElapsed);
         window.display();
         if (timePassed > 1.f) {
