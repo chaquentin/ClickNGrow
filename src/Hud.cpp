@@ -31,6 +31,8 @@ Hud::~Hud()
 {
     delete _texture;
     delete _sprite;
+    delete _levelTexture;
+    delete _level;
 }
 
 void Hud::display(sf::RenderWindow &window) const
