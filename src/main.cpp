@@ -24,12 +24,14 @@
 #include "WaterDrop.hpp"
 #include "WateringCan.hpp"
 
+#include "Save.hpp"
+
 void Pub();
 void PubForMoney(clickNGrow::Hud *hud, std::vector<clickNGrow::GameObject *> gameObjects);
 
 using namespace clickNGrow;
 
-static const std::vector<clickNGrow::GameObject *> gameObjects = {
+static std::vector<clickNGrow::GameObject *> gameObjects = {
     new WaterDrop(),
     new DogPiss(),
     new GrannyBreaksHerWater(),
@@ -124,6 +126,19 @@ float getDeltaTime(sf::Clock &clock)
 
 int main(void)
 {
+
+    Save save(gameObjects);
+
+    size_t nbrUpgrades = save.load("save.json").size();
+
+    for (unsigned int i = 0; i < nbrUpgrades; i++) {
+        gameObjects[i] = save.getObjects()[i];
+    };
+
+    // std::cout << save.getElapsedTimeMoney()[0] << std::endl;
+    // std::cout << save.getElapsedTimeMoney()[1] << std::endl;
+
+
     // create SFML loop here
     sf::RenderWindow window(sf::VideoMode(1920, 1080), "ClickNGrow", sf::Style::Fullscreen);
     float timePassed = 0.f;
@@ -135,6 +150,7 @@ int main(void)
     clickNGrow::Hud hud;
     srand(time(NULL));
 
+    hud += save.getMoney();
     while (window.isOpen()) {
         sf::Event event;
         while (window.pollEvent(event)) {
@@ -165,5 +181,8 @@ int main(void)
     }
     for (auto &gameObject : gameObjects)
         delete gameObject;
+
+    save.saveGame(gameObjects, hud.getMoney());
+
     return 0;
 }

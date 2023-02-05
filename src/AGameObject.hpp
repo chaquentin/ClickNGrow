@@ -24,6 +24,7 @@ namespace clickNGrow {
             void setPrice(float price);
             float getMoney(void) const;
             void setAmount(float amount);
+            void setMoney(float money);
             int getAmount(void) const;
             sf::Vector2f getPosition(void) const;
             void setPosition(sf::Vector2f position);

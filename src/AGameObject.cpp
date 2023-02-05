@@ -57,6 +57,11 @@ float AGameObject::getMoney(void) const
     return _money;
 }
 
+void AGameObject::setMoney(float money)
+{
+    _money = money;
+}
+
 void AGameObject::setAmount(float amount)
 {
     _amount = amount;

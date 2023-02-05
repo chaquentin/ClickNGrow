@@ -20,6 +20,7 @@ SRC =	AGameObject.cpp	\
 		Rain.cpp	\
 		WaterDrop.cpp	\
 		WateringCan.cpp	\
+		Save.cpp	\
 
 $(eval SRC=$(addprefix src/, $(SRC)))
 
@@ -30,7 +31,7 @@ OBJ =	$(SRC:.cpp=.o)
 
 NAME =	ClickNGrow
 
-CFLAGS = -Wall -Wextra -I./include -lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio
+CFLAGS = -Wall -Wextra -I./include -lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio -ljsoncpp
 
 all:	$(NAME)
 
