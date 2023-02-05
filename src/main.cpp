@@ -25,6 +25,7 @@
 #include "WateringCan.hpp"
 
 void Pub();
+void PubForMoney(clickNGrow::Hud *hud, std::vector<clickNGrow::GameObject *> gameObjects);
 
 using namespace clickNGrow;
 
@@ -125,7 +126,6 @@ int main(void)
 {
     // create SFML loop here
     sf::RenderWindow window(sf::VideoMode(1920, 1080), "ClickNGrow", sf::Style::Fullscreen);
-    unsigned int scene = 0;
     float timePassed = 0.f;
     sf::Clock clock;
     sf::Text money_text;
@@ -144,6 +144,8 @@ int main(void)
                 getMouseEvent(hud, event);
             if (event.type == sf::Event::MouseWheelScrolled)
                 manageScroll(hud, event);
+            if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::P)
+                PubForMoney(&hud, gameObjects);
         }
         timePassed += getDeltaTime(clock);
         update(hud, timePassed);
