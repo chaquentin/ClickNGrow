@@ -24,12 +24,14 @@
 #include "WaterDrop.hpp"
 #include "WateringCan.hpp"
 
+#include "Save.hpp"
+
 void Pub();
 void PubForMoney(clickNGrow::Hud *hud, std::vector<clickNGrow::GameObject *> gameObjects);
 
 using namespace clickNGrow;
 
-static const std::vector<clickNGrow::GameObject *> gameObjects = {
+static std::vector<clickNGrow::GameObject *> gameObjects = {
     new WaterDrop(),
     new DogPiss(),
     new GrannyBreaksHerWater(),
@@ -124,17 +126,42 @@ float getDeltaTime(sf::Clock &clock)
 
 int main(void)
 {
+
+    Save save(gameObjects);
+
+    size_t nbrUpgrades = save.load("save.json").size();
+
+    for (unsigned int i = 0; i < nbrUpgrades; i++) {
+        gameObjects[i] = save.getObjects()[i];
+    };
+
+    // std::cout << save.getElapsedTimeMoney()[0] << std::endl;
+    // std::cout << save.getElapsedTimeMoney()[1] << std::endl;
+
+
     // create SFML loop here
     sf::RenderWindow window(sf::VideoMode(1920, 1080), "ClickNGrow", sf::Style::Fullscreen);
     float timePassed = 0.f;
     sf::Clock clock;
     sf::Text money_text;
+    sf::Text pub_text;
     sf::Font font;
+    sf::CircleShape circle;
     font.loadFromFile("assets/fonts/ClickNGrow.ttf");
+    circle.setRadius(50);
+    circle.setFillColor(sf::Color::White);
     money_text.setFont(font);
+    money_text.setFillColor(sf::Color::Black);
+    money_text.setPosition(35, 30);
+    pub_text.setFont(font);
+    pub_text.setFillColor(sf::Color::Black);
+    pub_text.setString("PUB");
+    pub_text.setPosition(42, 975);
+    circle.setPosition(20, 945);
     clickNGrow::Hud hud;
     srand(time(NULL));
 
+    hud += save.getMoney();
     while (window.isOpen()) {
         sf::Event event;
         while (window.pollEvent(event)) {
@@ -144,7 +171,7 @@ int main(void)
                 getMouseEvent(hud, event);
             if (event.type == sf::Event::MouseWheelScrolled)
                 manageScroll(hud, event);
-            if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::P)
+            if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left && event.mouseButton.x >= 20 && event.mouseButton.x <= 70 && event.mouseButton.y >= 945 && event.mouseButton.y <= 995)
                 PubForMoney(&hud, gameObjects);
         }
         timePassed += getDeltaTime(clock);
@@ -152,15 +179,21 @@ int main(void)
         window.clear();
         hud.display(window);
         display(window);
-        money_text.setString(convertMoney(hud.getMoney()) + "*");
-        money_text.setFillColor(sf::Color::Black);
-        money_text.setPosition(35, 30);
+        double total = 0;
+        for (auto &object : gameObjects)
+            total += object->getMoney() * object->getAmount();
+        money_text.setString(convertMoney(hud.getMoney()) + "*\n" + convertMoney(total) + "* / s");
         window.draw(money_text);
+        window.draw(circle);
+        window.draw(pub_text);
         window.display();
         if (timePassed > 1.f) {
             timePassed = 0.f;
         }
     }
+
+    save.saveGame(gameObjects, hud.getMoney());
+
     for (auto &gameObject : gameObjects)
         delete gameObject;
     return 0;

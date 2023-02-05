@@ -21,8 +21,8 @@ void Pub()
 
 void PubForMoney(clickNGrow::Hud *hud, std::vector<clickNGrow::GameObject *> gameObjects)
 {
-    double total = 0;
     Pub();
+    double total = 0;
     for (auto &object : gameObjects) {
         total += object->getMoney() * object->getAmount();
     }

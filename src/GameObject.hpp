@@ -28,8 +28,9 @@ namespace clickNGrow {
             virtual float getPrice(void) const = 0;
             virtual float getMoney(void) const = 0;
             virtual void setAmount(float amount) = 0;
-            virtual int getAmount(void) const = 0;
             virtual void setPrice(float price) = 0;
+            virtual void setMoney(float money) = 0;
+            virtual int getAmount(void) const = 0;
             virtual sf::Vector2f getPosition(void) const = 0;
             virtual void setPosition(sf::Vector2f position) = 0;
         protected:
