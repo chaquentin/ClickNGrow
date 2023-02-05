@@ -22,6 +22,12 @@ AGameObject::AGameObject(float price, float money, DisplayMode mode, int amount)
     _sprite->setTexture(*_texture);
 }
 
+AGameObject::~AGameObject()
+{
+    delete _sprite;
+    delete _texture;
+}
+
 float AGameObject::update(float money, float deltaTime)
 {
     if (deltaTime >= 1) {

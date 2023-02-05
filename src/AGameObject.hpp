@@ -15,7 +15,7 @@ namespace clickNGrow {
     class AGameObject : public GameObject {
         public:
             AGameObject(float price, float money, DisplayMode mode, int amount);
-            ~AGameObject() = default;
+            ~AGameObject();
             float update(float money, float deltaTime);
             virtual void display(sf::RenderWindow &) const = 0;
             void setDisplayMode(DisplayMode displayMode);
