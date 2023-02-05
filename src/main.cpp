@@ -126,5 +126,7 @@ int main(void)
             timePassed = 0.f;
         }
     }
+    for (auto &gameObject : gameObjects)
+        delete gameObject;
     return 0;
 }
