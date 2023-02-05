@@ -7,6 +7,8 @@
 
 #ifndef AGAMEOBJECT_HPP_
 #define AGAMEOBJECT_HPP_
+
+#include <SFML/Graphics.hpp>
 #include "GameObject.hpp"
 
 namespace clickNGrow {
@@ -15,7 +17,7 @@ namespace clickNGrow {
             AGameObject(float price, float money, DisplayMode mode, int amount);
             ~AGameObject() = default;
             float update(float money, float deltaTime);
-            virtual void display() const = 0;
+            virtual void display(sf::RenderWindow &) const = 0;
             void setDisplayMode(DisplayMode displayMode);
             DisplayMode getDisplayMode(void) const;
             float getPrice(void) const;
@@ -23,7 +25,13 @@ namespace clickNGrow {
             float getMoney(void) const;
             void setAmount(float amount);
             int getAmount(void) const;
+            sf::Vector2f getPosition(void) const;
+            void setPosition(sf::Vector2f position);
         protected:
+            sf::Sprite *_sprite;
+            sf::Texture *_texture;
+            sf::Vector2f _position;
+            sf::IntRect _rect;
             DisplayMode _displayMode;
             float _price;
             float _money;
@@ -31,5 +39,7 @@ namespace clickNGrow {
         private:
     };
 }
+
+std::string convertMoney(double money);
 
 #endif /* !AGAMEOBJECT_HPP_ */

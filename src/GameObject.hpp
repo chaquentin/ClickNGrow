@@ -21,7 +21,7 @@ namespace clickNGrow {
         public:
             virtual ~GameObject() = default;
             virtual float update(float money, float deltaTime) = 0;
-            virtual void display() const = 0;
+            virtual void display(sf::RenderWindow &) const = 0;
 
             virtual void setDisplayMode(DisplayMode displayMode) = 0;
             virtual DisplayMode getDisplayMode(void) const = 0;
@@ -29,6 +29,9 @@ namespace clickNGrow {
             virtual float getMoney(void) const = 0;
             virtual void setAmount(float amount) = 0;
             virtual int getAmount(void) const = 0;
+            virtual void setPrice(float price) = 0;
+            virtual sf::Vector2f getPosition(void) const = 0;
+            virtual void setPosition(sf::Vector2f position) = 0;
         protected:
         private:
     };

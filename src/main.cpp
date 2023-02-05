@@ -41,10 +41,65 @@ static const std::vector<clickNGrow::GameObject *> gameObjects = {
     new Rain(),
 };
 
-void display()
+std::string convertMoney(double money);
+
+int getMouseEvent(Hud &hud, sf::Event &event)
+{
+    bool is_new = false;
+
+    if (event.mouseButton.x >= 0 && event.mouseButton.x <= 1280 && event.mouseButton.y >= 0 && event.mouseButton.y <= 1080) {
+        hud += 1;
+        if ((int)hud.getMoney() % 10 == 0 && rand() % 10 == 1)
+            Pub();
+    } else {
+        for (auto &object : gameObjects) {
+            if (is_new) {
+                object->setDisplayMode(Revealed);
+                is_new = false;
+            }
+            if (event.mouseButton.x >= object->getPosition().x && event.mouseButton.x <= object->getPosition().x + 640 && event.mouseButton.y >= object->getPosition().y && event.mouseButton.y <= object->getPosition().y + 200) {
+                if (hud.getMoney() >= object->getPrice() && object->getDisplayMode() != Hidden) {
+                    hud += - object->getPrice();
+                    object->setAmount(object->getAmount() + 1);
+                    object->setPrice(object->getPrice() * 1.25);
+                    if (object->getAmount() == 1) {
+                        is_new = true;
+                        hud.setNbrDisplay(hud.getNbrDisplay() + 1);
+                        hud.levelUp();
+                    }
+                }
+            }
+        }
+    }
+    return 0;
+}
+
+int manageScroll(Hud &hud, sf::Event &event)
+{
+    sf::Vector2f movement = sf::Vector2f(0, 200);
+
+    if (hud.getNbrDisplay() < 6)
+        return 0;
+    if (event.mouseWheelScroll.delta > 0) {
+        if (gameObjects[0]->getPosition().y >= - 200)
+            movement.y = -gameObjects[0]->getPosition().y;
+        for (auto &object : gameObjects) {
+            object->setPosition(object->getPosition() + movement);
+        }
+    } else if (event.mouseWheelScroll.delta < 0) {
+        if (gameObjects[hud.getNbrDisplay() - 1]->getPosition().y < 1080)
+            movement.y = gameObjects[hud.getNbrDisplay() - 1]->getPosition().y - 880;
+        for (auto &object : gameObjects) {
+            object->setPosition(object->getPosition() - movement);
+        }
+    }
+    return 0;
+}
+
+void display(sf::RenderWindow &window)
 {
     for (auto &gameObject : gameObjects) {
-        gameObject->display();
+        gameObject->display(window);
     }
 }
 
@@ -78,6 +133,7 @@ int main(void)
     font.loadFromFile("assets/fonts/ClickNGrow.ttf");
     money_text.setFont(font);
     clickNGrow::Hud hud;
+    srand(time(NULL));
 
     while (window.isOpen()) {
         sf::Event event;
@@ -85,39 +141,16 @@ int main(void)
             if (event.type == sf::Event::Closed or sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
                 window.close();
             if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left)
-                if (event.mouseButton.x >= 0 && event.mouseButton.x <= 1280 && event.mouseButton.y >= 0 && event.mouseButton.y <= 1080) {
-                    hud += 1;
-                    if ((int)hud.getMoney() % 10 == 0 && rand() % 10 == 1)
-                        Pub();
-                }
-
-            if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::J) {
-                for (auto &gameObject : gameObjects) {
-                    if (WaterDrop *water = dynamic_cast<WaterDrop *>(gameObject))
-                        if (hud.getMoney() >= water->getPrice()) {
-                            water->setAmount(water->getAmount() + 1);
-                            hud += -water->getPrice();
-                            water->setPrice(water->getPrice() * 1.25);
-                        }
-                }
-            }
-            if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::K) {
-                for (auto &gameObject : gameObjects) {
-                    if (DogPiss *dogpiss = dynamic_cast<DogPiss *>(gameObject))
-                        if (hud.getMoney() >= dogpiss->getPrice()) {
-                            dogpiss->setAmount(dogpiss->getAmount() + 1);
-                            hud += -dogpiss->getPrice();
-                            dogpiss->setPrice(dogpiss->getPrice() * 1.25);
-                        }
-                }
-            }
+                getMouseEvent(hud, event);
+            if (event.type == sf::Event::MouseWheelScrolled)
+                manageScroll(hud, event);
         }
         timePassed += getDeltaTime(clock);
         update(hud, timePassed);
         window.clear();
         hud.display(window);
-        display();
-        money_text.setString(std::to_string((int)hud.getMoney()) + "*");
+        display(window);
+        money_text.setString(convertMoney(hud.getMoney()) + "*");
         money_text.setFillColor(sf::Color::Black);
         money_text.setPosition(35, 30);
         window.draw(money_text);

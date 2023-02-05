@@ -14,7 +14,7 @@ namespace clickNGrow {
         public:
             GrandpasStool();
             ~GrandpasStool();
-            void display() const;
+            void display(sf::RenderWindow &) const;
         protected:
         private:
     };
