@@ -27,6 +27,11 @@
 
 #include <tuple>
 
+int clickNGrow::Save::getNbrUpgrades(void) const
+{
+    return _nbrUpgrades;
+}
+
 std::vector<std::string> clickNGrow::Save::getElapsedTimeMoney(void)
 {
     unsigned int timeSinceLastSave = _timeSinceLastSave;
@@ -90,6 +95,7 @@ clickNGrow::Save::Save(std::vector<clickNGrow::GameObject *> gameObjects)
     _money = 0.0;
     _gameObjects = gameObjects;
     _moneyGotten = 0;
+    _nbrUpgrades = 0;
 }
 
 clickNGrow::Save::~Save()
@@ -120,6 +126,7 @@ const std::vector<clickNGrow::GameObject *> clickNGrow::Save::load(std::string f
             _gameObjects[i]->setMoney(completeJsonData["Upgrades"][i]["money"].asFloat());
             _moneyGotten += (completeJsonData["Upgrades"][i]["amount"].asInt() * completeJsonData["Upgrades"][i]["money"].asFloat() * multTime);
             if (i > 0 && completeJsonData["Upgrades"][i - 1]["amount"].asInt()) {
+                _nbrUpgrades++;
                 _gameObjects[i]->setDisplayMode(Revealed);
             }
         }
