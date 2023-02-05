@@ -52,6 +52,8 @@ int getMouseEvent(Hud &hud, sf::Event &event)
 
     if (event.mouseButton.x >= 0 && event.mouseButton.x <= 1280 && event.mouseButton.y >= 0 && event.mouseButton.y <= 1080) {
         hud += 1;
+        if ((int)hud.getMoney() % 100 == 0 && rand() % 10 == 1)
+            Pub();
         if (event.mouseButton.x >= 20 && event.mouseButton.x <= 120 && event.mouseButton.y >= 945 && event.mouseButton.y <= 1045)
             PubForMoney(&hud, gameObjects);
     } else {
@@ -124,6 +126,11 @@ float getDeltaTime(sf::Clock &clock)
     return deltaTime;
 }
 
+void displayTimeElapsed(sf::RenderWindow &window, sf::Text timeElapsed)
+{
+    window.draw(timeElapsed);
+}
+
 int main(void)
 {
 
@@ -135,16 +142,13 @@ int main(void)
         gameObjects[i] = save.getObjects()[i];
     };
 
-    // std::cout << save.getElapsedTimeMoney()[0] << std::endl;
-    // std::cout << save.getElapsedTimeMoney()[1] << std::endl;
-
-
-    // create SFML loop here
     sf::RenderWindow window(sf::VideoMode(1920, 1080), "ClickNGrow", sf::Style::Fullscreen);
     float timePassed = 0.f;
+    int totalseconds = 0;
     sf::Clock clock;
     sf::Text money_text;
     sf::Text pub_text;
+    sf::Text timeElapsed;
     sf::Font font;
     sf::CircleShape circle;
     font.loadFromFile("assets/fonts/ClickNGrow.ttf");
@@ -158,6 +162,10 @@ int main(void)
     pub_text.setString("PUB");
     pub_text.setPosition(42, 975);
     circle.setPosition(20, 945);
+    timeElapsed.setFont(font);
+    timeElapsed.setFillColor(sf::Color::Black);
+    timeElapsed.setPosition(100, 300);
+    timeElapsed.setString(save.getElapsedTimeMoney()[0] + " since last time played" + "\nMoney earned during this time : " + save.getElapsedTimeMoney()[1] + " *");
     clickNGrow::Hud hud;
     srand(time(NULL));
 
@@ -172,8 +180,6 @@ int main(void)
             if (event.type == sf::Event::MouseWheelScrolled)
                 manageScroll(hud, event);
         }
-        if ((int)hud.getMoney() % 100 == 0 && rand() % 10 == 1)
-            Pub();
         timePassed += getDeltaTime(clock);
         update(hud, timePassed);
         window.clear();
@@ -186,9 +192,12 @@ int main(void)
         window.draw(money_text);
         window.draw(circle);
         window.draw(pub_text);
+        if (totalseconds < 15)
+            displayTimeElapsed(window, timeElapsed);
         window.display();
         if (timePassed > 1.f) {
             timePassed = 0.f;
+            totalseconds++;
         }
     }
 
