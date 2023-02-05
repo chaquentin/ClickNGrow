@@ -95,7 +95,7 @@ clickNGrow::Save::Save(std::vector<clickNGrow::GameObject *> gameObjects)
     _money = 0.0;
     _gameObjects = gameObjects;
     _moneyGotten = 0;
-    _nbrUpgrades = 0;
+    _nbrUpgrades = 1;
 }
 
 clickNGrow::Save::~Save()
