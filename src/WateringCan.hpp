@@ -14,7 +14,7 @@ namespace clickNGrow {
         public:
             WateringCan();
             ~WateringCan();
-            void display() const;
+            void display(sf::RenderWindow &) const;
         protected:
         private:
     };

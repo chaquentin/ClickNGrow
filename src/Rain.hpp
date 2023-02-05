@@ -14,7 +14,7 @@ namespace clickNGrow {
         public:
             Rain();
             ~Rain();
-            void display() const;
+            void display(sf::RenderWindow &) const;
         protected:
         private:
     };
