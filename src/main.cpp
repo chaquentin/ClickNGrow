@@ -52,8 +52,8 @@ int getMouseEvent(Hud &hud, sf::Event &event)
 
     if (event.mouseButton.x >= 0 && event.mouseButton.x <= 1280 && event.mouseButton.y >= 0 && event.mouseButton.y <= 1080) {
         hud += 1;
-        if ((int)hud.getMoney() % 10 == 0 && rand() % 10 == 1)
-            Pub();
+        if (event.mouseButton.x >= 20 && event.mouseButton.x <= 120 && event.mouseButton.y >= 945 && event.mouseButton.y <= 1045)
+            PubForMoney(&hud, gameObjects);
     } else {
         for (auto &object : gameObjects) {
             if (is_new) {
@@ -171,9 +171,9 @@ int main(void)
                 getMouseEvent(hud, event);
             if (event.type == sf::Event::MouseWheelScrolled)
                 manageScroll(hud, event);
-            if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left && event.mouseButton.x >= 20 && event.mouseButton.x <= 70 && event.mouseButton.y >= 945 && event.mouseButton.y <= 995)
-                PubForMoney(&hud, gameObjects);
         }
+        if ((int)hud.getMoney() % 100 == 0 && rand() % 10 == 1)
+            Pub();
         timePassed += getDeltaTime(clock);
         update(hud, timePassed);
         window.clear();
